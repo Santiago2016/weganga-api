@@ -68,4 +68,109 @@ class LoginsController extends FOSRestController
         $em->flush();
         return array($users);
     }
+    
+    public function filterproviderAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $providers = $em->getRepository('ApiRestBundle:Providers')->findAll();
+        $filter = array();
+        foreach ($providers as $p){
+            if (strstr(strtolower($p->getNombre()), strtolower($valor)) != FALSE || strstr(strtolower($p->getApellidos()), strtolower($valor)) != FALSE || strstr(strtolower($p->getDireccion()), strtolower($valor)) != FALSE || strstr(strtolower($p->getTelefono()), strtolower($valor)) != FALSE || strstr(strtolower($p->getEmail()), strtolower($valor)) != FALSE || strstr(strtolower($p->getDni()), strtolower($valor)) != FALSE){
+                $filter[] = $p;
+            }
+        }
+        return array('providers' => $filter);
+    }
+    
+    public function filterimpuestoAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $impuestos = $em->getRepository('ApiRestBundle:Impuestos')->findAll();
+        $filter = array();
+        foreach ($impuestos as $i){
+            if (strstr(strtolower($i->getName()), strtolower($valor)) != FALSE || strstr(strtolower($i->getDescription()), strtolower($valor)) != FALSE){
+                $filter[] = $i;
+            }
+        }
+        return array('taxs' => $filter);
+    }
+    
+    public function filterofferAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $offers = $em->getRepository('ApiRestBundle:Offers')->findAll();
+        $filter = array();
+        foreach ($offers as $o){
+            if (strstr(strtolower($o->getName()), strtolower($valor)) != FALSE){
+                $filter[] = $o;
+            }
+        }
+        return array('offers' => $filter);
+    }
+    
+    public function filtershopcarAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $shopcars = $em->getRepository('ApiRestBundle:Shopcars')->findAll();
+        $filter = array();
+        foreach ($shopcars as $s){
+            if (strstr(strtolower($s->getName()), strtolower($valor)) != FALSE || strstr(strtolower($s->getDescription()), strtolower($valor)) != FALSE){
+                $filter[] = $s;
+            }
+        }
+        return array('shopcars' => $filter);
+    }
+    
+    public function filterpromotionAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $promotions = $em->getRepository('ApiRestBundle:Promotions')->findAll();
+        $filter = array();
+        foreach ($promotions as $p){
+            if (strstr(strtolower($p->getName()), strtolower($valor)) != FALSE || strstr(strtolower($p->getDesciption()), strtolower($valor)) != FALSE){
+                $filter[] = $p;
+            }
+        }
+        return array('promotions' => $filter);
+    }
+    
+    public function filtersaleAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $sales = $em->getRepository('ApiRestBundle:Sales')->findAll();
+        $filter = array();
+        foreach ($sales as $s){
+            if (strstr(strtolower($s->getOffer()->getName()), strtolower($valor)) != FALSE || strstr(strtolower($s->getClient()), strtolower($valor)) != FALSE || strstr(strtolower($s->getOffer()->getProvider()), strtolower($valor)) != FALSE){
+                $filter[] = $s;
+            }
+        }
+        return array('sales' => $filter);
+    }
+    
+    public function filteruserAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ApiRestBundle:Users')->findAll();
+        $filter = array();
+        foreach ($users as $u){
+            if (strstr(strtolower($u->getNombre()), strtolower($valor)) != FALSE || strstr(strtolower($u->getApellidos()), strtolower($valor)) != FALSE || strstr(strtolower($u->getDireccion()), strtolower($valor)) != FALSE || strstr(strtolower($u->getTelefono()), strtolower($valor)) != FALSE || strstr(strtolower($u->getEmail()), strtolower($valor)) != FALSE){
+                $filter[] = $u;
+            }
+        }
+        return array('users' => $filter);
+    }
+    
+    public function filtercategoriaAction($valor){
+        $em = $this->getDoctrine()->getManager();
+        $categorys = $em->getRepository('ApiRestBundle:Categorys')->findAll();
+        $filter = array();
+        foreach ($categorys as $c){
+            if (strstr(strtolower($c->getName()), strtolower($valor)) != FALSE || strstr(strtolower($c->getDescription()), strtolower($valor)) != FALSE){
+                $filter[] = $c;
+            }
+        }
+        return array('categorys' => $filter);
+    }
+    
+    public function aprobarofertaAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $oferta = $em->getRepository('ApiRestBundle:Offers')->find($id);
+        $oferta->setEstado("APROBADA");
+        $em->persist($oferta);
+        $em->flush();
+        return array('status' => 'success');
+    }
 }

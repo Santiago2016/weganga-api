@@ -21,3 +21,57 @@ api_rest_user_update:
     defaults: { _controller: ApiRestBundle:Logins:updateUser, _fotmat: ~}
     requirements:
          _method: POST
+         
+api_rest_provider_filter:
+    path: /api/providers/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filterprovider, _fotmat: ~}
+    requirements:
+         _method: GET
+         
+api_rest_impuesto_filter:
+    path: /api/impuestos/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filterimpuesto, _fotmat: ~}
+    requirements:
+         _method: GET         
+         
+api_rest_oferta_filter:
+    path: /api/offers/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filteroffer, _fotmat: ~}
+    requirements:
+         _method: GET         
+         
+api_rest_shopcars_filter:
+    path: /api/shopcars/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filtershopcar, _fotmat: ~}
+    requirements:
+         _method: GET                  
+         
+api_rest_promotions_filter:
+    path: /api/promotions/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filterpromotion, _fotmat: ~}
+    requirements:
+         _method: GET      
+         
+api_rest_sales_filter:
+    path: /api/sales/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filtersale, _fotmat: ~}
+    requirements:
+         _method: GET  
+         
+api_rest_user_filter:
+    path: /api/users/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filteruser, _fotmat: ~}
+    requirements:
+         _method: GET     
+         
+api_rest_categorias_filter:
+    path: /api/categorias/filtrar/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:filtercategoria, _fotmat: ~}
+    requirements:
+         _method: GET              
+         
+api_rest_offers_aprobar:
+    path: /api/offers/aprobar/{id}
+    defaults: { _controller: ApiRestBundle:Logins:aprobaroferta, _fotmat: ~}
+    requirements:
+         _method: GET                       
