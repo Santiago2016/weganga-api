@@ -1,0 +1,135 @@
+<?php
+
+namespace Admin\ApiRestBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Sales
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Admin\ApiRestBundle\Entity\SalesRepository")
+ */
+class Sales
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desciption", type="string", length=1000)
+     */
+    private $desciption;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Admin\ApiRestBundle\Entity\Offers", inversedBy="sales")
+     * @ORM\JoinColumn(fieldName="offer_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $offer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Admin\ApiRestBundle\Entity\Clients", inversedBy="sales")
+     * @ORM\JoinColumn(fieldName="client_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $client;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Sales
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set desciption
+     *
+     * @param string $desciption
+     * @return Sales
+     */
+    public function setDesciption($desciption)
+    {
+        $this->desciption = $desciption;
+
+        return $this;
+    }
+
+    /**
+     * Get desciption
+     *
+     * @return string 
+     */
+    public function getDesciption()
+    {
+        return $this->desciption;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Sales
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+}

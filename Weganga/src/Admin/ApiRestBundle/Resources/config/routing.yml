@@ -1,0 +1,23 @@
+api_rest_login:
+    path: /api/login
+    defaults: { _controller: ApiRestBundle:Logins:loginUser, _fotmat: ~}
+    requirements:
+         _method: POST
+
+api_rest_logout:
+    path: /api/logout
+    defaults: { _controller: ApiRestBundle:Logins:logoutUser, _fotmat: ~}
+    requirements:
+         _method: POST
+
+api_rest_forgot:
+    path: /api/forgot
+    defaults: { _controller: ApiRestBundle:Logins:forgot, _fotmat: ~}
+    requirements:
+         _method: POST
+
+api_rest_user_update:
+    path: /api/user/update
+    defaults: { _controller: ApiRestBundle:Logins:updateUser, _fotmat: ~}
+    requirements:
+         _method: POST
