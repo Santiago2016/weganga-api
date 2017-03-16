@@ -90,6 +90,53 @@ class Users implements UserInterface, \Serializable {
      * @ORM\Column(name="codigopostal", type="bigint")
      */
     protected $codigopostal;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Admin\ApiRestBundle\Entity\Categorys", mappedBy="user")
+     */
+    protected $categorys;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categorys = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add category
+     *
+     * @param \Admin\ApiRestBundle\Entity\Categorys $category
+     *
+     * @return Users
+     */
+    public function addCategory(\Admin\ApiRestBundle\Entity\Categorys $category)
+    {
+        $this->categorys[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \Admin\ApiRestBundle\Entity\Categorys $category
+     */
+    public function removeCategory(\Admin\ApiRestBundle\Entity\Categorys $category)
+    {
+        $this->categorys->removeElement($category);
+    }
+
+    /**
+     * Get categorys
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategorys()
+    {
+        return $this->categorys;
+    }
 
     /**
      * Get id

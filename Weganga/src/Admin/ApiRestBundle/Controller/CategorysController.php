@@ -38,7 +38,14 @@ class CategorysController extends Controller
         $em = $this->getDoctrine()->getManager();
         $categorys = new Categorys();
         $categorys->setName($json['name']);
-        $categorys->setDescription($json['description']);        
+        $categorys->setDescription($json['description']);
+        $user = $em->getRepository('ApiRestBundle:Users')->find($json['user']);
+        $categorys->setUser($user);
+        if ($user->getRole() == 'ROLE_ADMIN'){
+            $categorys->setBorrable("NO");
+        }else{
+            $categorys->setBorrable("SI");
+        }
         $em->persist($categorys);
         $em->flush();
         //enviar el username y el password por sms

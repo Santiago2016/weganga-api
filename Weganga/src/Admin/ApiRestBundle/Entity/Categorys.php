@@ -43,16 +43,17 @@ class Categorys
     private $offers;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Admin\ApiRestBundle\Entity\Providers", inversedBy="categorys")
-     * @ORM\JoinColumn(name="provider_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Admin\ApiRestBundle\Entity\Users", inversedBy="categorys")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $provider;
-
+    private $user;
+    
     /**
-     * @ORM\ManyToOne(targetEntity="Admin\ApiRestBundle\Entity\Clients", inversedBy="interestcategories")
-     * @ORM\JoinColumn(name="client_interest_id", referencedColumnName="id", onDelete="CASCADE")
+     * @var string
+     *
+     * @ORM\Column(name="borrable", type="string", length=3)
      */
-    private $client;
+    private $borrable;//SI NO
 
     /**
      * Get id
@@ -63,7 +64,16 @@ class Categorys
     {
         return $this->id;
     }
+    
+    function getBorrable() {
+        return $this->borrable;
+    }
 
+    function setBorrable($borrable) {
+        $this->borrable = $borrable;
+    }
+
+    
     /**
      * Set name
      *
@@ -156,13 +166,13 @@ class Categorys
     /**
      * Set provider
      *
-     * @param \Admin\ApiRestBundle\Entity\Providers $provider
+     * @param \Admin\ApiRestBundle\Entity\Users $provider
      *
      * @return Categorys
      */
-    public function setProvider(\Admin\ApiRestBundle\Entity\Providers $provider = null)
+    public function setUser(\Admin\ApiRestBundle\Entity\Users $provider = null)
     {
-        $this->provider = $provider;
+        $this->user = $provider;
 
         return $this;
     }
@@ -170,35 +180,11 @@ class Categorys
     /**
      * Get provider
      *
-     * @return \Admin\ApiRestBundle\Entity\Providers
+     * @return \Admin\ApiRestBundle\Entity\Users
      */
-    public function getProvider()
+    public function getUser()
     {
-        return $this->provider;
-    }
-
-    /**
-     * Set client
-     *
-     * @param \Admin\ApiRestBundle\Entity\Clients $client
-     *
-     * @return Categorys
-     */
-    public function setClient(\Admin\ApiRestBundle\Entity\Clients $client = null)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * Get client
-     *
-     * @return \Admin\ApiRestBundle\Entity\Clients
-     */
-    public function getClient()
-    {
-        return $this->client;
+        return $this->user;
     }
 
     public function __toString()

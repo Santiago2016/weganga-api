@@ -36,7 +36,7 @@ class OffersController extends Controller
         $offer = new Offers();
         $date = new \DateTime('now');
         $enddate = new \DateTime();
-        $enddate->setDate(2017, 2, 23);
+        $enddate->setDate($json['year'], $json['month'], $json['day']);
         $offer->setName($json['name']);
         $offer->setCantrequest(0);
         $offer->setConditions($json['conditions']);

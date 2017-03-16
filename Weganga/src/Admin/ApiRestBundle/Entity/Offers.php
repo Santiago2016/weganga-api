@@ -203,6 +203,48 @@ class Offers
      * @ORM\Column(name="rebaja10", type="float")
      */
     private $rebaja10;//de 2501 a 5000
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="foto", type="string", length=1000)
+     
+     */
+    protected $foto;
+    
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     * @return Usuario
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string 
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+    
+    public function subirFoto()
+        {
+            if (null === $this->foto) {
+            return;
+            }
+            $directorioDestino = __DIR__.'/../../../../web/uploads/ofertas';
+            $nombreArchivoFoto = $this->getName().'.jpg';
+            $this->foto->move($directorioDestino, $nombreArchivoFoto);
+            $this->setFoto($nombreArchivoFoto);
+        }
 
     /**
      * Get id

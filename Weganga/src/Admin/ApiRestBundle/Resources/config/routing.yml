@@ -74,4 +74,89 @@ api_rest_offers_aprobar:
     path: /api/offers/aprobar/{id}
     defaults: { _controller: ApiRestBundle:Logins:aprobaroferta, _fotmat: ~}
     requirements:
-         _method: GET                       
+         _method: GET
+         
+api_rest_offers_filtrado:
+    path: /api/offers/users/filter/{valor}
+    defaults: { _controller: ApiRestBundle:Logins:usuariofilter, _fotmat: ~}
+    requirements:
+        methods: GET
+        
+api_rest_apuntarse:
+    path: /api/user/apuntarse
+    defaults: { _controller: ApiRestBundle:Logins:apuntarse, _fotmat: ~}
+    requirements:
+         _method: POST
+         
+api_rest_desear:
+    path: /api/user/desear
+    defaults: { _controller: ApiRestBundle:Logins:desear, _fotmat: ~}
+    requirements:
+         _method: POST         
+         
+api_rest_lista_deseos:
+    path: /api/user/listadeseos
+    defaults: { _controller: ApiRestBundle:Logins:listadeseos, _fotmat: ~}
+    requirements:
+         _method: POST  
+         
+api_rest_categorias_vendedor:
+    path: /api/vendedor/categorias
+    defaults: { _controller: ApiRestBundle:Logins:vendedorcategorias, _fotmat: ~}
+    requirements:
+         _method: POST           
+         
+api_rest_ofertas_vendedor:
+    path: /api/vendedor/ofertas
+    defaults: { _controller: ApiRestBundle:Logins:vendedorofertas, _fotmat: ~}
+    requirements:
+         _method: POST                    
+         
+api_rest_proveedor_categorias:
+    path: /api/proveedor/offers
+    defaults: { _controller: ApiRestBundle:Logins:proveedorofertas, _fotmat: ~}
+    requirements:
+        _method: POST
+        
+api_rest_categoria_ofertas:
+    path: /api/categoria/ofertas
+    defaults: { _controller: ApiRestBundle:Logins:categoriaofertas, _fotmat: ~}
+    requirements:
+        _method: POST
+        
+api_rest_ofertas_dia:
+    path: /api/offers/dia
+    defaults: { _controller: ApiRestBundle:Logins:ofertasdia, _fotmat: ~}
+    requirements:
+        _method: GET   
+        
+api_rest_ofertas_user:
+    path: /api/offers/user
+    defaults: { _controller: ApiRestBundle:Logins:ofertasuser, _fotmat: ~}
+    requirements:
+        _method: GET 
+        
+api_rest_ofertas_user_single:
+    path: /api/offers/single
+    defaults: { _controller: ApiRestBundle:Logins:ofertaver, _fotmat: ~}
+    requirements:
+        _method: POST
+        
+api_rest_ofertas_de_un_usuario:
+    path: /api/users/ofertas
+    defaults: { _controller: ApiRestBundle:Logins:ofertasusuario, _fotmat: ~}
+    requirements:
+        _method: POST  
+        
+api_rest_usuarios_de_una_oferta:
+    path: /api/ofertas/users
+    defaults: { _controller: ApiRestBundle:Logins:usuariosoferta, _fotmat: ~}
+    requirements:
+        _method: POST          
+        
+api_rest_cargamasiva:
+    path: /api/cargamasiva
+    defaults: { _controller: ApiRestBundle:Logins:cargamasiva, _fotmat: ~}
+    requirements:
+        _method: POST          
+               
