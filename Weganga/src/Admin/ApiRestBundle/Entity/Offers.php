@@ -4,6 +4,7 @@ namespace Admin\ApiRestBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Offers
@@ -32,7 +33,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="place", type="string", length=255)
+     * @ORM\Column(name="place", type="string", length=255, nullable=true)
      */
     private $place;
 
@@ -53,7 +54,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
@@ -72,6 +73,13 @@ class Offers
     private $cantrequest;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="faltan", type="bigint", nullable=true)
+     */
+    private $faltan;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="period", type="string", length=255)
@@ -81,7 +89,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="conditions", type="string", length=255)
+     * @ORM\Column(name="conditions", type="string", length=255, nullable=true)
      */
     private $conditions;
 
@@ -95,7 +103,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="moreinfo", type="string", length=255)
+     * @ORM\Column(name="moreinfo", type="string", length=255, nullable=true)
      */
     private $moreinfo;
     
@@ -137,77 +145,77 @@ class Offers
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja1", type="float")
+     * @ORM\Column(name="rebaja1", type="float", nullable=true)
      */
     private $rebaja1;//de 1 a 5
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja2", type="float")
+     * @ORM\Column(name="rebaja2", type="float", nullable=true)
      */
     private $rebaja2;//de 6 a 10
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja3", type="float")
+     * @ORM\Column(name="rebaja3", type="float", nullable=true)
      */
     private $rebaja3;//de 11 a 25
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja4", type="float")
+     * @ORM\Column(name="rebaja4", type="float", nullable=true)
      */
     private $rebaja4;//de 26 a 50
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja5", type="float")
+     * @ORM\Column(name="rebaja5", type="float", nullable=true)
      */
     private $rebaja5;//de 51 a 100
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja6", type="float")
+     * @ORM\Column(name="rebaja6", type="float", nullable=true)
      */
     private $rebaja6;//de 101 a 250
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja7", type="float")
+     * @ORM\Column(name="rebaja7", type="float", nullable=true)
      */
     private $rebaja7;//de 251 a 500
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja8", type="float")
+     * @ORM\Column(name="rebaja8", type="float", nullable=true)
      */
     private $rebaja8;//de 501 a 1000
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja9", type="float")
+     * @ORM\Column(name="rebaja9", type="float", nullable=true)
      */
     private $rebaja9;//de 1001 a 2500
     
     /**
      * @var float
      *
-     * @ORM\Column(name="rebaja10", type="float")
+     * @ORM\Column(name="rebaja10", type="float", nullable=true)
      */
     private $rebaja10;//de 2501 a 5000
     
     /**
      * @var string
      *
-     * @ORM\Column(name="foto", type="string", length=1000)
+     * @ORM\Column(name="foto", type="string", length=100000000, nullable=true)
      
      */
     protected $foto;
@@ -243,6 +251,7 @@ class Offers
             $directorioDestino = __DIR__.'/../../../../web/uploads/ofertas';
             $nombreArchivoFoto = $this->getName().'.jpg';
             $this->foto->move($directorioDestino, $nombreArchivoFoto);
+            move_uploaded_file($this->foto, $directorioDestino);
             $this->setFoto($nombreArchivoFoto);
         }
 
@@ -532,6 +541,29 @@ class Offers
     }
 
     /**
+     * Set faltan
+     *
+     * @param integer $faltan
+     * @return Offers
+     */
+    public function setFaltan($faltan)
+    {
+        $this->faltan = $faltan;
+
+        return $this;
+    }
+
+    /**
+     * Get faltan
+     *
+     * @return integer
+     */
+    public function getFaltan()
+    {
+        return $this->faltan;
+    }
+
+    /**
      * Set moreinfo
      *
      * @param string $moreinfo
@@ -610,6 +642,7 @@ class Offers
         $this->requests = new ArrayCollection();
         $this->sales = new ArrayCollection();
         $this->client = new ArrayCollection();
+        $this->faltan = 1;
     }
 
     /**

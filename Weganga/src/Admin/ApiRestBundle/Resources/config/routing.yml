@@ -87,7 +87,13 @@ api_rest_apuntarse:
     defaults: { _controller: ApiRestBundle:Logins:apuntarse, _fotmat: ~}
     requirements:
          _method: POST
-         
+
+api_rest_apuntarseeditar:
+    path: /api/user/apuntarseeditar
+    defaults: { _controller: ApiRestBundle:Logins:apuntarseeditar, _fotmat: ~}
+    requirements:
+         _method: POST
+
 api_rest_desear:
     path: /api/user/desear
     defaults: { _controller: ApiRestBundle:Logins:desear, _fotmat: ~}

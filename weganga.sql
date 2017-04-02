@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2016 at 04:06 AM
+-- Generation Time: Apr 02, 2017 at 01:13 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.5.35
 
@@ -30,20 +30,25 @@ CREATE TABLE `categorys` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `provider_id` int(11) DEFAULT NULL,
-  `client_interest_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `borrable` varchar(3) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `categorys`
 --
 
-INSERT INTO `categorys` (`id`, `name`, `description`, `provider_id`, `client_interest_id`) VALUES
-(1, 'Pullovers', 'Pullovers for any class of men', NULL, NULL),
-(3, 'Shoes', 'Good shoes for men and women', NULL, NULL),
-(4, 'moda', 'articulos de moda fashion', NULL, NULL),
-(5, 'categoria nueva', 'todos los productos nuevos', NULL, NULL),
-(6, 'chancletas', 'todas las chancletas mas algo', NULL, NULL);
+INSERT INTO `categorys` (`id`, `name`, `description`, `user_id`, `borrable`) VALUES
+(1, 'Pullovers', 'Pullovers for any class of men', NULL, ''),
+(3, 'Shoes', 'Good shoes for men and women', NULL, ''),
+(4, 'moda', 'articulos de moda fashion', NULL, ''),
+(5, 'categoria nueva', 'todos los productos nuevos', NULL, ''),
+(6, 'chancletas', 'todas las chancletas mas algo', NULL, ''),
+(7, 'Electrodomesticos', '', 3, 'NO'),
+(8, 'Electronica', '', 3, 'NO'),
+(9, 'Hogar, dulce hogar', '', NULL, 'NO'),
+(10, 'Accesorios', '', NULL, 'NO'),
+(12, 'Exterior', '', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -56,14 +61,6 @@ CREATE TABLE `categorys_offers` (
   `offers_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `categorys_offers`
---
-
-INSERT INTO `categorys_offers` (`categorys_id`, `offers_id`) VALUES
-(1, 4),
-(4, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -74,13 +71,6 @@ CREATE TABLE `clients_offers` (
   `clients_id` int(11) NOT NULL,
   `offers_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `clients_offers`
---
-
-INSERT INTO `clients_offers` (`clients_id`, `offers_id`) VALUES
-(3, 4);
 
 -- --------------------------------------------------------
 
@@ -111,37 +101,38 @@ INSERT INTO `impuestos` (`id`, `name`, `description`, `tasaimpuesto`) VALUES
 CREATE TABLE `offers` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `place` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `place` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `date` datetime NOT NULL,
   `descuento` int(11) NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cantrequest` bigint(20) NOT NULL,
-  `conditions` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `moreinfo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `conditions` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `moreinfo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `provider_id` int(11) DEFAULT NULL,
   `enddate` datetime NOT NULL,
   `cost` double NOT NULL,
-  `rebaja1` double NOT NULL,
-  `rebaja2` double NOT NULL,
-  `rebaja3` double NOT NULL,
-  `rebaja4` double NOT NULL,
-  `rebaja5` double NOT NULL,
-  `rebaja6` double NOT NULL,
-  `rebaja7` double NOT NULL,
-  `rebaja8` double NOT NULL,
-  `rebaja9` double NOT NULL,
-  `rebaja10` double NOT NULL,
-  `estado` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `rebaja1` double DEFAULT NULL,
+  `rebaja2` double DEFAULT NULL,
+  `rebaja3` double DEFAULT NULL,
+  `rebaja4` double DEFAULT NULL,
+  `rebaja5` double DEFAULT NULL,
+  `rebaja6` double DEFAULT NULL,
+  `rebaja7` double DEFAULT NULL,
+  `rebaja8` double DEFAULT NULL,
+  `rebaja9` double DEFAULT NULL,
+  `rebaja10` double DEFAULT NULL,
+  `estado` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `foto` longtext COLLATE utf8_unicode_ci,
+  `faltan` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `offers`
 --
 
-INSERT INTO `offers` (`id`, `name`, `place`, `date`, `descuento`, `description`, `cantrequest`, `conditions`, `moreinfo`, `provider_id`, `enddate`, `cost`, `rebaja1`, `rebaja2`, `rebaja3`, `rebaja4`, `rebaja5`, `rebaja6`, `rebaja7`, `rebaja8`, `rebaja9`, `rebaja10`, `estado`) VALUES
-(2, 'reloj', 'Santiago de Cuba', '2016-12-05 20:37:11', 0, 'relojes de marca', 0, 'tiene que comprar 20', 'la que me de la gana', 4, '2017-02-23 20:37:11', 57, 56, 54, 51, 48, 44, 40, 35, 30, 25, 20, 'APROBADA'),
-(3, 'tablet', 'La Habana', '2016-12-05 21:13:02', 0, 'una tablet blanca marca samsung', 0, 'pagar por adelantado', 'toda la que quieras', 4, '2017-02-23 21:13:02', 89, 88, 87, 85, 82, 78, 72, 67, 61, 54, 47, 'PENDIENTE'),
-(4, 'camisa', 'Madrid', '2016-12-05 21:17:26', 0, 'una camisa elegante', 0, 'buenasa', 'cualquiera', 4, '2017-02-23 21:17:26', 56, 55, 53, 50, 47, 43, 39, 35, 31, 27, 23, 'PENDIENTE');
+INSERT INTO `offers` (`id`, `name`, `place`, `date`, `descuento`, `description`, `cantrequest`, `conditions`, `moreinfo`, `provider_id`, `enddate`, `cost`, `rebaja1`, `rebaja2`, `rebaja3`, `rebaja4`, `rebaja5`, `rebaja6`, `rebaja7`, `rebaja8`, `rebaja9`, `rebaja10`, `estado`, `foto`, `faltan`) VALUES
+(4, 'Auriculares inhalambricos', 'Holguin', '2016-12-10 19:40:26', 0, 'Una descripcion cualquiera sobre el producto', 0, 'Una serie de condiciones que marcan el comportamiento de la oferta a traves del tiempo', 'Todal la que quieras', 4, '2017-07-18 19:40:26', 24.9, 24.2, 23.5, 22.6, 21.5, 20.2, 19.1, 17.9, 16.7, 15.4, 14.1, 'APROBADA', NULL, 1),
+(5, 'Reloj Inteligente', 'Habana', '2016-12-10 19:40:26', 0, 'Una descripcion cualquiera sobre el producto', 0, 'Una serie de condiciones que marcan el comportamiento de la oferta a traves del tiempo', 'Todal la que quieras', 4, '2017-03-10 19:40:26', 24.9, 24.2, 23.5, 22.6, 21.5, 20.2, 19.1, 17.9, 16.7, 15.4, 14.1, 'APROBADA', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -175,13 +166,6 @@ CREATE TABLE `requests` (
   `date` datetime NOT NULL,
   `client_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `requests`
---
-
-INSERT INTO `requests` (`id`, `quantity`, `offer_id`, `date`, `client_id`) VALUES
-(2, 1, 3, '2009-12-06 01:28:07', 3);
 
 -- --------------------------------------------------------
 
@@ -268,7 +252,7 @@ CREATE TABLE `tproviders` (
 --
 
 INSERT INTO `tproviders` (`id`, `dni`) VALUES
-(4, 2147483647);
+(4, 99999999999);
 
 -- --------------------------------------------------------
 
@@ -297,7 +281,7 @@ CREATE TABLE `tusers` (
 INSERT INTO `tusers` (`id`, `username`, `password`, `role`, `nombre`, `apellidos`, `direccion`, `email`, `telefono`, `codigopostal`, `discr1`) VALUES
 (3, 'camilo', '9nsKog8dMlM/s0wg2abXMKq1KfreQL95UkXlOXbdRKZ2FRRP9d54WeQjykGC3F5KTboGRaidakerPSkygKgn7w==', 'ROLE_CLIENTE', 'Camilo', 'Berenguer Perez', 'cccasa', 'camiloberenguer@gmail.com', '54539762', 90100, 'tclients'),
 (4, 'jesus', 'wqdFKo8fsBA/4R/7Ac7oIlUD+muPfcXx2ePuOwN+t1zl5JrSB9Iidmf1dX61v8Gr32mUnMcWgM8QhTdBgkMqBA==', 'ROLE_VENDEDOR', 'Jesus', 'Roig Peix', 'cccasa hjbasj', 'jesus@gmail.com', '53687818', 90100, 'tproviders'),
-(5, 'otro', '9nsKog8dMlM/s0wg2abXMKq1KfreQL95UkXlOXbdRKZ2FRRP9d54WeQjykGC3F5KTboGRaidakerPSkygKgn7w==', 'ROLE_ADMIN', 'Otro', 'Otro Otro', 'cccasa sadasd ', 'otro@gmail.com', '53687818', 90100, 'tadministrators');
+(5, 'otro', 'wqdFKo8fsBA/4R/7Ac7oIlUD+muPfcXx2ePuOwN+t1zl5JrSB9Iidmf1dX61v8Gr32mUnMcWgM8QhTdBgkMqBA==', 'ROLE_ADMIN', 'Otro', 'Otro Otro', 'cccasa sadasd ', 'otro@gmail.com', '53687818', 90100, 'tadministrators');
 
 --
 -- Indexes for dumped tables
@@ -308,8 +292,7 @@ INSERT INTO `tusers` (`id`, `username`, `password`, `role`, `nombre`, `apellidos
 --
 ALTER TABLE `categorys`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_759AF397A53A8AA` (`provider_id`),
-  ADD KEY `IDX_759AF3975BDEDAB2` (`client_interest_id`);
+  ADD KEY `IDX_759AF397A76ED395` (`user_id`);
 
 --
 -- Indexes for table `categorys_offers`
@@ -400,7 +383,7 @@ ALTER TABLE `tusers`
 -- AUTO_INCREMENT for table `categorys`
 --
 ALTER TABLE `categorys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `impuestos`
 --
@@ -410,7 +393,7 @@ ALTER TABLE `impuestos`
 -- AUTO_INCREMENT for table `offers`
 --
 ALTER TABLE `offers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `promotions`
 --
@@ -420,7 +403,7 @@ ALTER TABLE `promotions`
 -- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `sales`
 --
@@ -444,8 +427,7 @@ ALTER TABLE `tusers`
 -- Constraints for table `categorys`
 --
 ALTER TABLE `categorys`
-  ADD CONSTRAINT `FK_759AF3975BDEDAB2` FOREIGN KEY (`client_interest_id`) REFERENCES `tclients` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_759AF397A53A8AA` FOREIGN KEY (`provider_id`) REFERENCES `tproviders` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_759AF397A76ED395` FOREIGN KEY (`user_id`) REFERENCES `tusers` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `categorys_offers`
