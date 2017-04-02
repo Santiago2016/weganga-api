@@ -4,6 +4,7 @@ namespace Admin\ApiRestBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Offers
@@ -32,7 +33,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="place", type="string", length=255)
+     * @ORM\Column(name="place", type="string", length=255, nullable=true)
      */
     private $place;
 
@@ -53,7 +54,7 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
@@ -72,16 +73,23 @@ class Offers
     private $cantrequest;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="period", type="string", length=255)
+     * @ORM\Column(name="faltan", type="bigint", nullable=true)
      */
-    private $period;
+    private $faltan;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="conditions", type="string", length=255)
+     * @ORM\Column(name="period", type="string", length=255)
+     */
+//    private $period;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="conditions", type="string", length=255, nullable=true)
      */
     private $conditions;
 
@@ -95,9 +103,16 @@ class Offers
     /**
      * @var string
      *
-     * @ORM\Column(name="moreinfo", type="string", length=255)
+     * @ORM\Column(name="moreinfo", type="string", length=255, nullable=true)
      */
     private $moreinfo;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estado", type="string", length=255)
+     */
+    private $estado;//APROBADA PENDIENTE
 
     /**
      * @var string
@@ -126,6 +141,119 @@ class Offers
      * @ORM\ManyToMany(targetEntity="Admin\ApiRestBundle\Entity\Clients", mappedBy="listofwish")
      */
     private $client;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja1", type="float", nullable=true)
+     */
+    private $rebaja1;//de 1 a 5
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja2", type="float", nullable=true)
+     */
+    private $rebaja2;//de 6 a 10
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja3", type="float", nullable=true)
+     */
+    private $rebaja3;//de 11 a 25
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja4", type="float", nullable=true)
+     */
+    private $rebaja4;//de 26 a 50
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja5", type="float", nullable=true)
+     */
+    private $rebaja5;//de 51 a 100
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja6", type="float", nullable=true)
+     */
+    private $rebaja6;//de 101 a 250
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja7", type="float", nullable=true)
+     */
+    private $rebaja7;//de 251 a 500
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja8", type="float", nullable=true)
+     */
+    private $rebaja8;//de 501 a 1000
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja9", type="float", nullable=true)
+     */
+    private $rebaja9;//de 1001 a 2500
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="rebaja10", type="float", nullable=true)
+     */
+    private $rebaja10;//de 2501 a 5000
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="foto", type="string", length=100000000, nullable=true)
+     
+     */
+    protected $foto;
+    
+    /**
+     * Set foto
+     *
+     * @param string $foto
+     * @return Usuario
+     */
+    public function setFoto($foto)
+    {
+        $this->foto = $foto;
+
+        return $this;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string 
+     */
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+    
+    public function subirFoto()
+        {
+            if (null === $this->foto) {
+            return;
+            }
+            $directorioDestino = __DIR__.'/../../../../web/uploads/ofertas';
+            $nombreArchivoFoto = $this->getName().'.jpg';
+            $this->foto->move($directorioDestino, $nombreArchivoFoto);
+            move_uploaded_file($this->foto, $directorioDestino);
+            $this->setFoto($nombreArchivoFoto);
+        }
 
     /**
      * Get id
@@ -136,6 +264,7 @@ class Offers
     {
         return $this->id;
     }
+    
 
     /**
      * Set name
@@ -159,7 +288,97 @@ class Offers
     {
         return $this->name;
     }
+    
+    function getRebaja1() {
+        return $this->rebaja1;
+    }
 
+    function getRebaja2() {
+        return $this->rebaja2;
+    }
+
+    function getRebaja3() {
+        return $this->rebaja3;
+    }
+
+    function getRebaja4() {
+        return $this->rebaja4;
+    }
+
+    function getRebaja5() {
+        return $this->rebaja5;
+    }
+
+    function getRebaja6() {
+        return $this->rebaja6;
+    }
+
+    function getRebaja7() {
+        return $this->rebaja7;
+    }
+
+    function getRebaja8() {
+        return $this->rebaja8;
+    }
+
+    function getRebaja9() {
+        return $this->rebaja9;
+    }
+
+    function getRebaja10() {
+        return $this->rebaja10;
+    }
+
+    function setRebaja1($rebaja1) {
+        $this->rebaja1 = $rebaja1;
+    }
+
+    function setRebaja2($rebaja2) {
+        $this->rebaja2 = $rebaja2;
+    }
+
+    function setRebaja3($rebaja3) {
+        $this->rebaja3 = $rebaja3;
+    }
+    
+    function getEstado() {
+        return $this->estado;
+    }
+
+    function setEstado($estado) {
+        $this->estado = $estado;
+    }
+
+    
+    function setRebaja4($rebaja4) {
+        $this->rebaja4 = $rebaja4;
+    }
+
+    function setRebaja5($rebaja5) {
+        $this->rebaja5 = $rebaja5;
+    }
+
+    function setRebaja6($rebaja6) {
+        $this->rebaja6 = $rebaja6;
+    }
+
+    function setRebaja7($rebaja7) {
+        $this->rebaja7 = $rebaja7;
+    }
+
+    function setRebaja8($rebaja8) {
+        $this->rebaja8 = $rebaja8;
+    }
+
+    function setRebaja9($rebaja9) {
+        $this->rebaja9 = $rebaja9;
+    }
+
+    function setRebaja10($rebaja10) {
+        $this->rebaja10 = $rebaja10;
+    }
+
+    
     /**
      * Set place
      *
@@ -258,22 +477,22 @@ class Offers
      * @param string $period
      * @return Offers
      */
-    public function setPeriod($period)
-    {
-        $this->period = $period;
-
-        return $this;
-    }
+//    public function setPeriod($period)
+//    {
+//        $this->period = $period;
+//
+//        return $this;
+//    }
 
     /**
      * Get period
      *
      * @return string 
      */
-    public function getPeriod()
-    {
-        return $this->period;
-    }
+//    public function getPeriod()
+//    {
+//        return $this->period;
+//    }
 
     /**
      * Set conditions
@@ -319,6 +538,29 @@ class Offers
     public function getCost()
     {
         return $this->cost;
+    }
+
+    /**
+     * Set faltan
+     *
+     * @param integer $faltan
+     * @return Offers
+     */
+    public function setFaltan($faltan)
+    {
+        $this->faltan = $faltan;
+
+        return $this;
+    }
+
+    /**
+     * Get faltan
+     *
+     * @return integer
+     */
+    public function getFaltan()
+    {
+        return $this->faltan;
     }
 
     /**
@@ -400,6 +642,7 @@ class Offers
         $this->requests = new ArrayCollection();
         $this->sales = new ArrayCollection();
         $this->client = new ArrayCollection();
+        $this->faltan = 1;
     }
 
     /**

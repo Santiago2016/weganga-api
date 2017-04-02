@@ -78,10 +78,7 @@ class Providers extends Users
      */
     protected $offers;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Admin\ApiRestBundle\Entity\Categorys", mappedBy="provider")
-     */
-    protected $categorys;
+    
 
     //Users functions-------------------------------------
 
@@ -360,7 +357,6 @@ class Providers extends Users
     public function __construct()
     {
         $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->categorys = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -397,37 +393,5 @@ class Providers extends Users
         return $this->offers;
     }
 
-    /**
-     * Add category
-     *
-     * @param \Admin\ApiRestBundle\Entity\Categorys $category
-     *
-     * @return Providers
-     */
-    public function addCategory(\Admin\ApiRestBundle\Entity\Categorys $category)
-    {
-        $this->categorys[] = $category;
-
-        return $this;
-    }
-
-    /**
-     * Remove category
-     *
-     * @param \Admin\ApiRestBundle\Entity\Categorys $category
-     */
-    public function removeCategory(\Admin\ApiRestBundle\Entity\Categorys $category)
-    {
-        $this->categorys->removeElement($category);
-    }
-
-    /**
-     * Get categorys
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategorys()
-    {
-        return $this->categorys;
-    }
+    
 }

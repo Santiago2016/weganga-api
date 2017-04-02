@@ -89,11 +89,6 @@ class Clients extends Users
      */
     protected $listofwish;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Admin\ApiRestBundle\Entity\Categorys", mappedBy="client")
-     */
-    protected $interestcategories;
-
     //Users functions-------------------------------------
 
     /**
@@ -374,7 +369,6 @@ class Clients extends Users
         $this->requests = new ArrayCollection();
         $this->sales = new ArrayCollection();
         $this->listofwish = new ArrayCollection();
-        $this->interestcategories = new ArrayCollection();
     }
 
     /**
@@ -477,39 +471,5 @@ class Clients extends Users
     public function getListofwish()
     {
         return $this->listofwish;
-    }
-
-    /**
-     * Add interestcategory
-     *
-     * @param \Admin\ApiRestBundle\Entity\Categorys $interestcategory
-     *
-     * @return Clients
-     */
-    public function addInterestcategory(\Admin\ApiRestBundle\Entity\Categorys $interestcategory)
-    {
-        $this->interestcategories[] = $interestcategory;
-
-        return $this;
-    }
-
-    /**
-     * Remove interestcategory
-     *
-     * @param \Admin\ApiRestBundle\Entity\Categorys $interestcategory
-     */
-    public function removeInterestcategory(\Admin\ApiRestBundle\Entity\Categorys $interestcategory)
-    {
-        $this->interestcategories->removeElement($interestcategory);
-    }
-
-    /**
-     * Get interestcategories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInterestcategories()
-    {
-        return $this->interestcategories;
     }
 }

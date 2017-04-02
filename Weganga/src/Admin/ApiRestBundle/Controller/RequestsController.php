@@ -11,13 +11,13 @@ class RequestsController extends Controller
     public function getRequestAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $requests = $em->getRepository('ApiRestBundle:Requests')->findRequestsById($id);
+        $requests = $em->getRepository('ApiRestBundle:Requests')->find($id);
         return array('request'=>$requests);
     }
 
     public function getRequestsAction(){
         $em = $this->getDoctrine()->getManager();
-        $requests = $em->getRepository('ApiRestBundle:Requests')->findAllRequests();
+        $requests = $em->getRepository('ApiRestBundle:Requests')->findAll();
         return array('requests'=>$requests);
     }
 
